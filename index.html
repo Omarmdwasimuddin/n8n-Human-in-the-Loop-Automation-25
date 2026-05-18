@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeenDraft | AI Content Orchestrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbfbfd; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="max-w-xl w-full">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-semibold tracking-tight text-gray-900">ZeenDraft</h1>
+            <p class="text-gray-500 mt-2 text-lg">AI writes. You decide. Farzeen Ali approves.</p>
+        </div>
+
+        <div class="glass rounded-3xl p-8 shadow-2xl shadow-gray-200/50">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Recipient Name</label>
+                    <input type="text" id="recipient_name" placeholder="e.g. Abdullah" 
+                        class="w-full px-4 py-4 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-black outline-none transition-all text-gray-800 bg-white/50">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Campaign Topic</label>
+                    <input type="text" id="topic" placeholder="e.g. CS Hackathon 2026 Invitation" 
+                        class="w-full px-4 py-4 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-black outline-none transition-all text-gray-800 bg-white/50">
+                </div>
+
+                <button onclick="sendToN8N()" id="btnText"
+                    class="w-full bg-black text-white py-4 rounded-2xl font-medium hover:bg-gray-800 transition-all transform active:scale-95 shadow-lg shadow-black/10">
+                    Generate Draft
+                </button>
+            </div>
+
+            <div id="success" class="hidden mt-6 text-center animate-pulse">
+                <p class="text-green-600 font-medium italic">Sent to Farzeen Ali for approval... ⚡</p>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center text-gray-400 text-sm">
+            Powered by The Techzeen • 2026
+        </footer>
+    </div>
+
+    <script>
+        async function sendToN8N() {
+            const topicField = document.getElementById('topic');
+            const nameField = document.getElementById('recipient_name');
+            const btn = document.getElementById('btnText');
+            const success = document.getElementById('success');
+
+            const topic = topicField.value;
+            const recipientName = nameField.value;
+
+            if (!topic || !recipientName) {
+                alert("Please fill in both fields!");
+                return;
+            }
+
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            try {
+                const webhookUrl = 'http://localhost:5678/webhook-test/draft';
+                
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        topic: topic, 
+                        recipient_name: recipientName,
+                        requester: "Farzeen Ali" 
+                    })
+                });
+
+                if (response.ok) {
+                    success.classList.remove('hidden');
+                    topicField.value = '';
+                    nameField.value = '';
+                    btn.innerText = "Done!";
+                    
+                    setTimeout(() => {
+                        btn.innerText = "Generate Draft";
+                        btn.disabled = false;
+                        success.classList.add('hidden');
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Connection failed. Check n8n webhook.");
+                btn.innerText = "Generate Draft";
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
