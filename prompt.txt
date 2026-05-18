@@ -1,0 +1,14 @@
+Write a professional email based on the following details:
+
+- Topic/Context: {{ $json.body.topic }}
+- Sender: Farzeen Ali, Founder of The Techzeen.
+- Recipient's Name: {{ $json.body.recipient_name }}
+- Current Date: {{ $now.format('MMMM DD, YYYY') }}
+- Location Context: The Techzeen HQ / Online.
+
+Constraints:
+1. Strictly NO placeholders like [Date] or [Recipient Name].
+2. Use the Topic provided above to generate the content.
+3. Summarize the key benefits in 2-3 short sentences.
+4. Finish with a clear call to action.
+5. If no specific time is in the topic, assume 10:00 AM PKT.
