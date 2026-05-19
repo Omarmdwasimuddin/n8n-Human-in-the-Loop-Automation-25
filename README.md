@@ -9,3 +9,4 @@
 #### Wait node er +sign click koro--->search & click: if---> Conditions e daw: wait node er CS Hackathon k drag & drop koro--->arekta daw: Approve--->
 
 #### if er true er +sign click koro--->search & click: gmail--->click: send a message--->value set koro.--->send a message er name chenge kore Approve daw
+#### if er false er +sign click koro--->search & click: gmail--->click: send a message--->value set koro.--->send a message er name chenge kore Reject daw
