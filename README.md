@@ -5,3 +5,5 @@
 #### Webhook er +sign click koro--->search & click: open ai--->click: Message a model--->Model daw--->Role daw: System--->Prompt daw: prompt.txt theke paste kore daw.
 
 #### Message a model er +sign click koro--->search & click: wait--->Resume daw: On Form Submitted--->Form Title e daw: [for ex:Request for meeting]--->Form Description e daw: [for ex: Please review this draft.]--->click Add Form Element--->Field Name: webhook theke topic drag & drop koro--->Element Type: Redio buttons--->Redio buttons Approve ar reject set koro.
+
+#### Wait node er +sign click koro--->search & click: if---> Conditions e daw: wait node er CS Hackathon k drag & drop koro--->arekta daw: Approve--->
